@@ -29,7 +29,8 @@ class Cards(Sprite):
             self.y = 20
         else:
             self.x = game.columns_x_list[self.pile]
-            self.y = 20
+            self.y = game.columns_y_list[self.pile]
+            game.columns_y_list[self.pile] += 75
 
         #Sets the image to the image corrosponding with the key and group
         self.image = pygame.image.load(f"images/{self.card}_{self.group}.png")

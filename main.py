@@ -112,6 +112,16 @@ class MainGame:
             'column_7': 0
         }
 
+        self.columns_y_list = {
+            'column_1': 20,
+            'column_2': 20,
+            'column_3': 20,
+            'column_4': 20,
+            'column_5': 20,
+            'column_6': 20,
+            'column_7': 20
+        }
+
         #Adds 133 pixels of space between each pile
         for column in self.columns_x_list:
             self.columns_x += 133
