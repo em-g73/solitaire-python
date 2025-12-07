@@ -54,7 +54,8 @@ class MainGame:
 
         for card in self.cards:
             for group in self.groups:
-                self.card_list.append(f"{card}_{group}")
+                card_0 = {'group': group, 'card': card}
+                self.card_list.append(card_0)
 
         #Creates the four build piles using a base class
         self.hearts_pile = Build_Pile(self, "hearts")
@@ -63,8 +64,7 @@ class MainGame:
         self.spades_pile = Build_Pile(self, "spades")
 
         self.create_draw_pile()
-        self.create_columns()
-
+        #self.create_columns()
         
     def create_draw_pile(self):
         #Creates a sprite group for cards in the draw pile
@@ -72,13 +72,12 @@ class MainGame:
 
         #Adds cards to the draw pile until there are 28 left
         while len(self.card_list) > 28:
-            self.card = Cards(self, random.choice(self.groups), random.choice(self.cards))
+            self.current_card = random.choice(self.card_list)
+            self.card = Cards(self, self.current_card['group'], self.current_card['card'])
             self.draw_pile.add(self.card)
-            try:
-                self.card_list.remove(f'{self.card.card}_{self.card.group}')
-            except ValueError: #If the card picked already exists, the card will get deleted. Fix later
-                print('Card Duplicate')
-                self.card.kill
+            self.card_list.remove(self.current_card)
+        
+        print(self.draw_pile)
 
     def create_columns(self):
         #Creates a sprite group for each column
