@@ -62,6 +62,10 @@ class MainGame:
         self.clubs_pile = Build_Pile(self, "clubs")
         self.spades_pile = Build_Pile(self, "spades")
 
+        self.create_draw_pile()
+        self.create_columns()
+
+        
         #Creates a sprite group for cards in the draw pile
         self.draw_pile = pygame.sprite.Group()
 
@@ -75,6 +79,7 @@ class MainGame:
                 print('Card Duplicate')
                 self.card.kill
 
+    def create_columns(self):
         #Creates a sprite group for each column
         self.column_1 = pygame.sprite.Group()
         self.column_2 = pygame.sprite.Group()
