@@ -19,6 +19,7 @@ class MainGame:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
+        self.cursor = pygame.mouse.set_cursor(*pygame.cursors.arrow)
         pygame.display.set_caption("Solitaire")
 
         self.set_up()
@@ -149,6 +150,15 @@ class MainGame:
             #Checks for buttons unpressed
             elif event.type == pygame.KEYUP:
                 self.check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self.mouse_pos = pygame.mouse.get_pos()
+                for column in (self.columns_list):
+                    for card in column:
+                        if card.rect.collidepoint(self.mouse_pos):
+                            print('clicked on column card')
+                    for card in self.draw_pile:
+                        if card.rect.collidepoint(self.mouse_pos):
+                            print('clicked on draw pile card')
 
     def check_keydown_events(self, event):
         #Exits if the q key is pressed
