@@ -70,11 +70,13 @@ class MainGame:
     def create_draw_pile(self):
         #Creates a sprite group for cards in the draw pile
         self.draw_pile = pygame.sprite.Group()
+        self.draw_pile_list = []
 
         #Adds cards to the draw pile until there are 28 left
         while len(self.card_list) > 28:
             self.current_card = random.choice(self.card_list)
             self.current_card['pile'] = 'draw_pile'
+            self.draw_pile_list.append(self.current_card)
             self.card = Cards(self, self.current_card['group'], self.current_card['card'], self.current_card['pile'])
             self.draw_pile.add(self.card)
             self.card_list.remove(self.current_card)
@@ -157,8 +159,9 @@ class MainGame:
                         if card.rect.collidepoint(self.mouse_pos):
                             print('clicked on column card')
                     for card in self.draw_pile:
-                        if card.rect.collidepoint(self.mouse_pos):
-                            print('clicked on draw pile card')
+                        self.current_card = self.draw_pile_list[-1]
+                        if card.rect.collidepoint(self.mouse_pos) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
+                            card.create_highlight(self)            
 
     def check_keydown_events(self, event):
         #Exits if the q key is pressed

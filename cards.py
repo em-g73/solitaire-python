@@ -1,6 +1,7 @@
 import pygame
 
 from pygame.sprite import Sprite
+from highlight import Highlight
 
 class Cards(Sprite):
 
@@ -36,6 +37,14 @@ class Cards(Sprite):
         self.image = pygame.image.load(f"images/{self.card}_{self.group}.png")
         self.rect = self.image.get_rect()
     
+    def create_highlight(self, game):
+        self.highlight = Highlight(game, self)
+
     def blitme(self):
         #Copies the sprite image to the screen
         self.screen.blit(self.image, self.rect)
+        try:
+            if self.highlight.visible:
+                self.highlight.blitme()
+        except AttributeError:
+            pass
