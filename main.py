@@ -130,7 +130,7 @@ class MainGame:
             self.columns_x += 133
             self.columns_x_list[column] = self.columns_x
 
-        #Adds remaining cards to the columns (this doesn't work at the moment)
+        #Adds remaining cards to the columns
         while len(self.card_list) > 0:
             for column in self.columns_list:
                 key = self.columns_list[column]
