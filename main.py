@@ -66,6 +66,7 @@ class MainGame:
         self.create_columns()
 
         
+    def create_draw_pile(self):
         #Creates a sprite group for cards in the draw pile
         self.draw_pile = pygame.sprite.Group()
 
