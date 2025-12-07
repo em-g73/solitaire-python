@@ -64,7 +64,7 @@ class MainGame:
         self.spades_pile = Build_Pile(self, "spades")
 
         self.create_draw_pile()
-        #self.create_columns()
+        self.create_columns()
         
     def create_draw_pile(self):
         #Creates a sprite group for cards in the draw pile
@@ -76,8 +76,6 @@ class MainGame:
             self.card = Cards(self, self.current_card['group'], self.current_card['card'])
             self.draw_pile.add(self.card)
             self.card_list.remove(self.current_card)
-        
-        print(self.draw_pile)
 
     def create_columns(self):
         #Creates a sprite group for each column
@@ -103,17 +101,12 @@ class MainGame:
         #Adds remaining cards to the columns (this doesn't work at the moment)
         while len(self.card_list) > 0:
             for column in self.columns_list:
-                print(len(self.card_list))
                 key = self.columns_list[column]
                 while len(column) < key:
-                    self.card = Cards(self, random.choice(self.groups), random.choice(self.cards))
+                    self.current_card = random.choice(self.card_list)
+                    self.card = Cards(self, self.current_card['group'], self.current_card['card'])
                     column.add(self.card)
-                    print(f" {len(column)}")
-                    try:
-                        self.card_list.remove(f'{self.card.card}_{self.card.group}')
-                    except ValueError: #If the card picked already exists, the card will get deleted. Fix later
-                        print('Card Duplicate')
-                        self.card.kill
+                    self.card_list.remove(self.current_card)
 
     def check_events(self):
         for event in pygame.event.get():
