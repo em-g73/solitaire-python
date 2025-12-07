@@ -95,7 +95,7 @@ class MainGame:
             self.column_7: 7
         }
 
-        #Adds remaining cards to the columns
+        #Adds remaining cards to the columns (this doesn't work at the moment)
         while len(self.card_list) > 0:
             for column in self.columns_list:
                 print(len(self.card_list))
