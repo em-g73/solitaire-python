@@ -31,7 +31,7 @@ class Build_Pile(Sprite):
 
         #Sets the y to the value that corrosponds with the key
         self.y = y_coordinate[self.key]
-        self.x = 992
+        self.x = 1150
 
         #Sets the image to the image corrosponding with the key
         self.image = pygame.image.load(f"images/{self.key}_placeholder.png")

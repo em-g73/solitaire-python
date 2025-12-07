@@ -100,7 +100,7 @@ class MainGame:
         }
 
         #Sets the initial x value to 20
-        self.columns_x = 20
+        self.columns_x = 50
 
         self.columns_x_list = {
             'column_1': 0,
