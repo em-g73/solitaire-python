@@ -73,7 +73,8 @@ class MainGame:
         #Adds cards to the draw pile until there are 28 left
         while len(self.card_list) > 28:
             self.current_card = random.choice(self.card_list)
-            self.card = Cards(self, self.current_card['group'], self.current_card['card'])
+            self.current_card['pile'] = 'draw_pile'
+            self.card = Cards(self, self.current_card['group'], self.current_card['card'], self.current_card['pile'])
             self.draw_pile.add(self.card)
             self.card_list.remove(self.current_card)
 
@@ -87,7 +88,7 @@ class MainGame:
         self.column_6 = pygame.sprite.Group()
         self.column_7 = pygame.sprite.Group()
 
-        #Creates a list of the columns
+        #Creates a dictionary of the columns
         self.columns_list = {
             self.column_1: 1,
             self.column_2: 2,
@@ -98,13 +99,32 @@ class MainGame:
             self.column_7: 7
         }
 
+        #Sets the initial x value to 20
+        self.columns_x = 20
+
+        self.columns_x_list = {
+            'column_1': 0,
+            'column_2': 0,
+            'column_3': 0,
+            'column_4': 0,
+            'column_5': 0,
+            'column_6': 0,
+            'column_7': 0
+        }
+
+        #Adds 133 pixels of space between each pile
+        for column in self.columns_x_list:
+            self.columns_x += 133
+            self.columns_x_list[column] = self.columns_x
+
         #Adds remaining cards to the columns (this doesn't work at the moment)
         while len(self.card_list) > 0:
             for column in self.columns_list:
                 key = self.columns_list[column]
                 while len(column) < key:
                     self.current_card = random.choice(self.card_list)
-                    self.card = Cards(self, self.current_card['group'], self.current_card['card'])
+                    self.current_card['pile'] = f'column_{key}'
+                    self.card = Cards(self, self.current_card['group'], self.current_card['card'], self.current_card['pile'])
                     column.add(self.card)
                     self.card_list.remove(self.current_card)
 
@@ -136,6 +156,9 @@ class MainGame:
         self.spades_pile.blitme()
         for card in self.draw_pile:
             card.blitme()
+        for column in self.columns_list:
+            for card in column:
+                card.blitme()
         pygame.display.flip()
 
     def run_game(self):
