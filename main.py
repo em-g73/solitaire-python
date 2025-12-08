@@ -53,6 +53,7 @@ class MainGame:
         #Creates a list of all 52 cards
         self.card_list = []
 
+        #Adds each card to card_list with the card and group as attributes
         for card in self.cards:
             for group in self.groups:
                 card_0 = {'group': group, 'card': card}
@@ -64,12 +65,14 @@ class MainGame:
         self.clubs_pile = Build_Pile(self, "clubs")
         self.spades_pile = Build_Pile(self, "spades")
 
+        #Creates the draw pile and columns
         self.create_draw_pile()
         self.create_columns()
         
     def create_draw_pile(self):
         #Creates a sprite group for cards in the draw pile
         self.draw_pile = pygame.sprite.Group()
+        #Creates a list of cards in the draw pile
         self.draw_pile_list = []
 
         #Adds cards to the draw pile until there are 28 left
@@ -105,6 +108,7 @@ class MainGame:
         #Sets the initial x value to 20
         self.columns_x = 50
 
+        #Creates a list of the x value of each column (the number changes later)
         self.columns_x_list = {
             'column_1': 0,
             'column_2': 0,
@@ -115,6 +119,7 @@ class MainGame:
             'column_7': 0
         }
 
+        #Creates a list of the current y value of the top card in each column (the number changes later)
         self.columns_y_list = {
             'column_1': 20,
             'column_2': 20,
@@ -151,17 +156,20 @@ class MainGame:
                 self.check_keydown_events(event)
             #Checks for buttons unpressed
             elif event.type == pygame.KEYUP:
-                self.check_keyup_events(event)
+               self.check_keyup_events(event)
+            #Checks if the mouse clicks
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.mouse_pos = pygame.mouse.get_pos()
+                #IN PROGRESS Creates a highlight around the card being clicked
                 for column in (self.columns_list):
                     for card in column:
                         if card.rect.collidepoint(self.mouse_pos):
                             print('clicked on column card')
-                    for card in self.draw_pile:
-                        self.current_card = self.draw_pile_list[-1]
-                        if card.rect.collidepoint(self.mouse_pos) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
-                            card.create_highlight(self)            
+                #Creates a highlight around whatever card is being clicked on
+                for card in self.draw_pile:
+                    self.current_card = self.draw_pile_list[-1]
+                    if card.rect.collidepoint(self.mouse_pos) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
+                        card.create_highlight(self)            
 
     def check_keydown_events(self, event):
         #Exits if the q key is pressed
@@ -171,7 +179,7 @@ class MainGame:
     def check_keyup_events(self, event):
         pass
 
-    def update_screen(self):
+    def update_screen(self): #Sets the background color and copies all of the sprites to the screen
         self.screen.fill(self.settings.bg_color)
         self.hearts_pile.blitme()
         self.diamonds_pile.blitme()
@@ -184,7 +192,7 @@ class MainGame:
                 card.blitme()
         pygame.display.flip()
 
-    def run_game(self):
+    def run_game(self): #Checks events, updates screen, and tracks time while running the game
         while True:
             self.check_events()
             self.update_screen()

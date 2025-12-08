@@ -17,14 +17,15 @@ class Highlight(Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        #Value determines if highlight will be visible
         self.visible = True
 
     def create_attributes(self, card): #Sets image and loctation
-        #Sets the image to the image corrosponding with the key
+        #Sets the image
         self.image = pygame.image.load(f"images/highlight.png")
         self.rect = self.image.get_rect()
 
-        #Sets the y to the value that corrosponds with the key
+        #Sets the y to the value that corrosponds with the card
         self.x = card.x
         self.y = card.y
 

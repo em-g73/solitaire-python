@@ -24,7 +24,7 @@ class Cards(Sprite):
         self.rect.y = self.y
 
     def create_attributes(self, game): #Sets image and location
-        #Sets x and y (Change later)
+        #Sets x and y based on pile/column and order
         if self.pile == 'draw_pile':
             self.x = 20
             self.y = 20
@@ -37,12 +37,13 @@ class Cards(Sprite):
         self.image = pygame.image.load(f"images/{self.card}_{self.group}.png")
         self.rect = self.image.get_rect()
     
-    def create_highlight(self, game):
+    def create_highlight(self, game): #Creates a highlight around the card to show it has been clicked on
         self.highlight = Highlight(game, self)
 
     def blitme(self):
         #Copies the sprite image to the screen
         self.screen.blit(self.image, self.rect)
+        #Copies the highlight sprite's image to the screen if it exists and is visible
         try:
             if self.highlight.visible:
                 self.highlight.blitme()
