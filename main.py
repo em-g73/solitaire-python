@@ -159,17 +159,7 @@ class MainGame:
                self.check_keyup_events(event)
             #Checks if the mouse clicks
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                self.mouse_pos = pygame.mouse.get_pos()
-                #IN PROGRESS Creates a highlight around the card being clicked
-                for column in (self.columns_list):
-                    for card in column:
-                        if card.rect.collidepoint(self.mouse_pos):
-                            print('clicked on column card')
-                #Creates a highlight around whatever card is being clicked on
-                for card in self.draw_pile:
-                    self.current_card = self.draw_pile_list[-1]
-                    if card.rect.collidepoint(self.mouse_pos) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
-                        card.create_highlight(self)            
+                self.check_mouse_events()
 
     def check_keydown_events(self, event):
         #Exits if the q key is pressed
@@ -178,6 +168,19 @@ class MainGame:
     
     def check_keyup_events(self, event):
         pass
+
+    def check_mouse_events(self):
+        self.mouse_pos = pygame.mouse.get_pos()
+        #IN PROGRESS Creates a highlight around the card being clicked
+        for column in (self.columns_list):
+            for card in column:
+                if card.rect.collidepoint(self.mouse_pos):
+                    print('clicked on column card')
+        #Creates a highlight around whatever card is being clicked on
+        for card in self.draw_pile:
+            self.current_card = self.draw_pile_list[-1]
+            if card.rect.collidepoint(self.mouse_pos) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
+                card.create_highlight(self)            
 
     def update_screen(self): #Sets the background color and copies all of the sprites to the screen
         self.screen.fill(self.settings.bg_color)
