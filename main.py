@@ -178,7 +178,12 @@ class MainGame:
         for column in (self.columns_list):
             for card in column:
                 if card.rect.collidepoint(self.mouse_pos):
-                    card.create_highlight(self)
+                    print('column card clicked')
+                    #This is not a permenant solution, but it might work
+                    #if mouse_pos == some where on the bottom half of the card (covered by other cards)
+                        #pass
+                    #else:
+                        #card.create_highlight(self)
         #Creates a highlight around whatever card is being clicked on
         for card in self.draw_pile:
             self.current_card = self.draw_pile_list[-1]
