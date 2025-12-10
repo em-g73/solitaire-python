@@ -105,6 +105,8 @@ class MainGame:
             self.column_7: 7
         }
 
+        self.column_cards_list = []
+
         #Sets the initial x value to 20
         self.columns_x = 50
 
@@ -142,6 +144,7 @@ class MainGame:
                 while len(column) < key:
                     self.current_card = random.choice(self.card_list)
                     self.current_card['pile'] = f'column_{key}'
+                    self.column_cards_list.append(self.current_card)
                     self.card = Cards(self, self.current_card['group'], self.current_card['card'], self.current_card['pile'])
                     column.add(self.card)
                     self.card_list.remove(self.current_card)
@@ -175,7 +178,7 @@ class MainGame:
         for column in (self.columns_list):
             for card in column:
                 if card.rect.collidepoint(self.mouse_pos):
-                    print('clicked on column card')
+                    card.create_highlight(self)
         #Creates a highlight around whatever card is being clicked on
         for card in self.draw_pile:
             self.current_card = self.draw_pile_list[-1]
