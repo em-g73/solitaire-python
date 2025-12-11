@@ -173,21 +173,24 @@ class MainGame:
         pass
 
     def check_mouse_events(self):
-        self.mouse_pos = pygame.mouse.get_pos()
-        #IN PROGRESS Creates a highlight around the card being clicked
+        self.mouse_pos_x, self.mouse_pos_y = pygame.mouse.get_pos()
+        self.mouse_collisions = []
+        #Creates a highlight around the column card being clicked
         for column in (self.columns_list):
-            for card in column:
-                if card.rect.collidepoint(self.mouse_pos):
-                    print('column card clicked')
-                    #This is not a permenant solution, but it might work
-                    #if mouse_pos == some where on the bottom half of the card (covered by other cards)
-                        #pass
-                    #else:
-                        #card.create_highlight(self)
-        #Creates a highlight around whatever card is being clicked on
+            for card in column: 
+                if card.rect.collidepoint(self.mouse_pos_x, self.mouse_pos_y):
+                    self.mouse_collisions.append(card)
+            if len(self.mouse_collisions) > 1:
+                for card in self.mouse_collisions:
+                    if self.mouse_pos_y in range(card.y, card.y + 75):
+                        card.create_highlight(self)
+            elif len(self.mouse_collisions) == 1:
+                self.current_card = self.mouse_collisions[0]
+                self.current_card.create_highlight(self)
+        #Creates a highlight around the top card of the draw pile on click
         for card in self.draw_pile:
             self.current_card = self.draw_pile_list[-1]
-            if card.rect.collidepoint(self.mouse_pos) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
+            if card.rect.collidepoint(self.mouse_pos_x, self.mouse_pos_y) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
                 card.create_highlight(self)            
 
     def update_screen(self): #Sets the background color and copies all of the sprites to the screen
