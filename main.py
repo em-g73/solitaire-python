@@ -180,13 +180,23 @@ class MainGame:
             for card in column: 
                 if card.rect.collidepoint(self.mouse_pos_x, self.mouse_pos_y):
                     self.mouse_collisions.append(card)
-            if len(self.mouse_collisions) > 1:
-                for card in self.mouse_collisions:
-                    if self.mouse_pos_y in range(card.y, card.y + 75):
-                        card.create_highlight(self)
-            elif len(self.mouse_collisions) == 1:
-                self.current_card = self.mouse_collisions[0]
-                self.current_card.create_highlight(self)
+        if len(self.mouse_collisions) > 1:
+            print(len(self.mouse_collisions))
+            for card in self.mouse_collisions:
+                for column in self.columns_list:
+                    if column.has(card):
+                        self.current_column = column.sprites()
+                        break
+                if card == self.current_column[-1]:
+                    card.create_highlight(self)
+                    break
+                elif self.mouse_pos_y in range(card.y, card.y + 75):
+                    card.create_highlight(self)
+        elif len(self.mouse_collisions) == 1:
+            self.current_card = self.mouse_collisions[0]
+            self.current_card.create_highlight(self)
+        else:
+            print(len(self.mouse_collisions))
         #Creates a highlight around the top card of the draw pile on click
         for card in self.draw_pile:
             self.current_card = self.draw_pile_list[-1]
