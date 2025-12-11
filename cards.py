@@ -38,6 +38,17 @@ class Cards(Sprite):
         self.rect = self.image.get_rect()
     
     def create_highlight(self, game): #Creates a highlight around the card to show it has been clicked on
+        for column in game.columns_list:
+            for card in column:
+                try:
+                    card.highlight.visible = False
+                except AttributeError:
+                    pass
+        for card in game.draw_pile:
+            try:
+                card.highlight.visible = False
+            except AttributeError:
+                pass
         self.highlight = Highlight(game, self)
 
     def blitme(self):
