@@ -53,6 +53,8 @@ class Cards(Sprite):
 
     def blitme(self):
         #Copies the sprite image to the screen
+        self.rect.x = self.x
+        self.rect.y = self.y
         self.screen.blit(self.image, self.rect)
         #Copies the highlight sprite's image to the screen if it exists and is visible
         try:

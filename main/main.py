@@ -198,7 +198,10 @@ class MainGame:
         for card in self.draw_pile:
             self.current_card = self.draw_pile_list[-1]
             if card.rect.collidepoint(self.mouse_pos_x, self.mouse_pos_y) and (self.current_card['card'] == card.card and self.current_card['group'] == card.group):
-                card.create_highlight(self)            
+                card.y += 200
+                #change layer
+                self.draw_pile_list.pop()
+                self.draw_pile_list.insert(0, self.current_card)
 
     def update_screen(self): #Sets the background color and copies all of the sprites to the screen
         self.screen.fill(self.settings.bg_color)
@@ -224,4 +227,4 @@ if __name__ == '__main__':
     game = MainGame()
     game.run_game()
 
-#Trace function: python -u -m trace -t main.py
+#Trace function: python -u -m trace -t main/main.py
