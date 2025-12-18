@@ -68,6 +68,13 @@ class MainGame:
         #Creates the draw pile and columns
         self.create_draw_pile()
         self.create_columns()
+
+        #self.layered_sprites = pygame.sprite.LayeredUpdates()
+        #for sprite in self.draw_pile.sprites():
+            #self.layered_sprites.add(sprite)
+        #for column in self.columns_list:
+            #for sprite in column.sprites():
+                #self.layered_sprites.add(column.sprites)
         
     def create_draw_pile(self):
         #Creates a sprite group for cards in the draw pile

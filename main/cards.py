@@ -59,6 +59,7 @@ class Cards(Sprite):
         game.draw_pile_list.insert(0, game.current_card)
         self.image = pygame.image.load(f"images/{self.card}_{self.group}.png")
         self.rect = self.image.get_rect()
+        #pygame.sprite.LayeredUpdates.move_to_front(self)
 
     def blitme(self):
         #Copies the sprite image to the screen
